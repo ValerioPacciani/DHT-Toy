@@ -21,7 +21,7 @@ public class Main {
 	 for (int k = 0; k< numberOfNodes; k++ ) {
 		 
 		 System.out.println(current.getid());
-		 System.out.println("///////////////////////////////////////////////////////////////////////");
+		 System.out.println("/////////////////////////////////////////////////////////////////////////");
 		 
 		 current = current.getnext();
 	 	}
