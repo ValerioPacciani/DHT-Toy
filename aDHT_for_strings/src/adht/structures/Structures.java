@@ -22,5 +22,7 @@ public class Structures {
 		return first;
 	}
 	
-	
+	public int MappingOfIds(Node start,int nodeId) {
+		return MurmurHashx32.hash32(Integer.toString(nodeId));
+	}
 }

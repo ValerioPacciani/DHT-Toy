@@ -20,7 +20,7 @@ public class Main {
 	 Node current = start;
 	 for (int k = 0; k< numberOfNodes; k++ ) {
 		 
-		 System.out.println(current.getid());
+		 System.out.println(structures.MappingOfIds(start,current.getid()));
 		 System.out.println("/////////////////////////////////////////////////////////////////////////");
 		 
 		 current = current.getnext();
