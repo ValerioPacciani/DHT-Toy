@@ -21,20 +21,21 @@ public class Structures {
 			 }
 			 prev = node; // il precedente diventa il nodo corrente
 		 } 
+	
+		prev.setnext(first); //l ultimo ha il primo come next (circolare
+
+
 		return first;
 	}
 	
 	
 	public void DistributeHash(Node start,MappedPair[] map) { //distribute the mapped content keys into the mapped node ids
-		Node next;
 		Node current =start;
 		do  {
 			current.setHashidkey(MappingOfIds(current.getid()));
-			//TODO debug
 			current = current.getnext();
-			next = current.getnext();
 			 //we are getting the nodes next of the current (is for the while statements
-		} while (start != next);	
+		} while (current != start);	
 		}
 	
 	

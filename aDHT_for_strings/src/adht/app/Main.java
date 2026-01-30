@@ -20,7 +20,7 @@ public class Main {
 	 
 	 String content = input.next();
 	 
-	 System.out.println(structures.MappingContent(content)[0]);
+	 //System.out.println(structures.MappingContent(content)[0]);
 	 
 	 Node start = structures.createRing(numberOfNodes);
 	 structures.DistributeHash(start, null);
