@@ -12,15 +12,23 @@ public class Main {
 	 Scanner input = new Scanner(System.in);
 	 
 	 Structures structures = new Structures();
-	 //TODO magari implemtnare una sorta di scelta della struttura anello, ipercubo etc
+	 //TODO magari implementare una sorta di scelta della struttura anello, ipercubo etc
 	 
 	 int numberOfNodes = input.nextInt();
+	 
+	 System.out.println("Inserire stringa da mappare:");
+	 
+	 String content = input.next();
+	 
+	 System.out.println(structures.MappingContent(content)[0]);
+	 
 	 Node start = structures.createRing(numberOfNodes);
+	 structures.DistributeHash(start, null);
 	 
 	 Node current = start;
 	 for (int k = 0; k< numberOfNodes; k++ ) {
 		 
-		 System.out.println(structures.MappingOfIds(start,current.getid()));
+		 System.out.println(current.getHashidkey());
 		 System.out.println("/////////////////////////////////////////////////////////////////////////");
 		 
 		 current = current.getnext();

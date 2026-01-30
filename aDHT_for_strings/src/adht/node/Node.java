@@ -4,6 +4,15 @@ public class Node {
 	private int id;
 	private char[] stored;
 	private Node next;
+	private long hashidkey;
+	
+	public void setHashidkey(long key) {
+		this.hashidkey = key;
+	}
+	
+	public long getHashidkey() {
+		return hashidkey;
+	}
 	
 	public void setnext(Node next) {
 		this.next = next;

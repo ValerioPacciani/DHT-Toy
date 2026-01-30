@@ -3,7 +3,9 @@ import adht.node.*;
 //this class is for the methods to create different type of structures
 
 public class Structures {
+	public final long RANGE_MAX = 4294967295L; //massimo valore di mappatura
 
+	
 	public Node createRing(int numberOfNodes) {
 	Node first = null;
 	Node prev = null;
@@ -22,7 +24,32 @@ public class Structures {
 		return first;
 	}
 	
-	public int MappingOfIds(Node start,int nodeId) {
-		return MurmurHashx32.hash32(Integer.toString(nodeId));
+	
+	public void DistributeHash(Node start,MappedPair[] map) { //distribute the mapped content keys into the mapped node ids
+		Node next;
+		Node current =start;
+		do  {
+			current.setHashidkey(MappingOfIds(current.getid()));
+			//TODO debug
+			current = current.getnext();
+			next = current.getnext();
+			 //we are getting the nodes next of the current (is for the while statements
+		} while (start != next);	
+		}
+	
+	
+	public MappedPair[] MappingContent(String content) {
+		MappedPair[] map = new MappedPair[content.length()];
+		for (int i = 0; i < content.length(); i++) {
+			char c = content.charAt(i);
+			long hash = MurmurHashx32.hash32(Integer.toString(c));
+			map[i] = new MappedPair(hash,c);
+		}
+		return map;
+		}
+	
+	public long MappingOfIds(int nodeId) {
+		long hash =  MurmurHashx32.hash32(Integer.toString(nodeId));
+		return hash & 0xFFFFFFFFL; //normalize the hash output(is a mask for remove the sign)
 	}
 }
