@@ -3,13 +3,19 @@ package adht.structures;
 public class MappedPair {
 	private long hashedkey;
 	private char content;
+	private int place;
 	
-	public MappedPair(long hashedkey,char content) {
+	public MappedPair(long hashedkey,char content,int place) {
 		this.hashedkey = hashedkey;
 		this.content = content;
+		this.place = place;
 	}
 	
 	public char getContent(long hashedkey){
 		return content;
 	}
+	public int getPlace(long hashedkey) {
+		return place;
+	}
+	
 }
