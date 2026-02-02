@@ -10,7 +10,9 @@ public class MappedPair {
 		this.content = content;
 		this.place = place;
 	}
-	
+	public long getHashedkey() {
+		return hashedkey;
+	}
 	public char getContent(long hashedkey){
 		return content;
 	}

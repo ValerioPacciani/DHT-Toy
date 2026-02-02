@@ -17,23 +17,59 @@ public class Structures {
 				first = node; //il nodo che ho appena creato diventa il primo		 
 			} else {
 				node.setid(i);
-				prev.setnext(node); //se non è il primo allora lo setto come prossimo del precdente
+				prev.setNext(node); //se non è il primo allora lo setto come prossimo del precdente
 			 }
 			 prev = node; // il precedente diventa il nodo corrente
 		 } 
 	
-		prev.setnext(first); //l ultimo ha il primo come next (circolare
+		prev.setNext(first); //l ultimo ha il primo come next (circolare
 
 
 		return first;
 	}
 	
+	public static void OrderNodeHash(Node start) {
+		boolean somethingswapped = false;
 	
-	public static void DistributeHash(Node start,MappedPair[] map) { //distribute the mapped content keys into the mapped node ids
+		do {
+		somethingswapped = false;
+		//FIXME the start node is not updated, so the cycle right now is infinite
+		Node prev = start;
+		Node current = prev.getNext();
+		Node next = current.getNext();
+		do  {
+			long key = current.getHashidkey();
+			long keynext = next.getHashidkey();
+			if (key >= keynext) {
+				prev.setNext(next);
+				current.setNext(next.getNext());
+				next.setNext(current);
+				
+				prev = next;
+				next = current.getNext();
+				
+				somethingswapped = true;
+				
+			} else {
+				prev = current;
+				current = next;
+				next = next.getNext();
+			}
+		} while (current != start);	
+		
+	} while(somethingswapped); //control flag, go out when i control all the cycle and nothing get swapped
+	}
+	
+	public static void PopulateRing(Node start,MappedPair[] content,String string) {
+		for (int i = 0; i< string.length(); i++) {
+			//TODO function
+		}
+	}
+	public static void DistributeHash(Node start) { //distribute the mapped content keys into the mapped node ids
 		Node current =start;
 		do  {
 			current.setHashidkey(MappingOfIds(current.getid()));
-			current = current.getnext();
+			current = current.getNext();
 			 //we are getting the nodes next of the current (is for the while statement)
 		} while (current != start);	
 		}

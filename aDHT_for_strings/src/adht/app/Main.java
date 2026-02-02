@@ -27,16 +27,28 @@ public class Main {
 	 //System.out.println(structures.MappingContent(content)[0]);
 	 
 	 Node start = Structures.createRing(numberOfNodes);
-	 Structures.DistributeHash(start, null);
+	 Structures.DistributeHash(start);
 	 
 	 Node current = start;
+	 System.out.println("prima dell ordinamento via chiave (ordinato per id) ");
 	 for (int k = 0; k< numberOfNodes; k++ ) {
-		 
+		
 		 System.out.println(current.getHashidkey());
-		 System.out.println("/////////////////////////////////////////////////////////////////////////");
+		 System.out.println(current.getid());
+		 System.out.println("----------------------------------------------------");
 		 
-		 current = current.getnext();
-	 	}
-	 
+		 current = current.getNext();
+	 	} System.out.println("////////////////////////////////////////////////////");
+	 	System.out.println("Ordimento via chiave");
+	 	Structures.OrderNodeHash(start);
+	 for (int k = 0; k< numberOfNodes; k++ ) {
+			
+		System.out.println(current.getHashidkey());
+		System.out.println(current.getid());
+		System.out.println("----------------------------------------------------");
+			 
+			 current = current.getNext();
+		 }
+		 
  }
  }

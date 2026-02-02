@@ -4,6 +4,7 @@ public class Node {
 	private int id;
 	private char[] stored;
 	private Node next;
+	private Node prev;
 	private long hashidkey;
 	
 	public void setHashidkey(long key) {
@@ -14,13 +15,7 @@ public class Node {
 		return hashidkey;
 	}
 	
-	public void setnext(Node next) {
-		this.next = next;
-	}
 	
-	public Node getnext() {
-		return next;
-	}
 	
 	public int getid() {
 		return id;
@@ -35,6 +30,21 @@ public class Node {
 			stored[i] = c;
 			i++;
 		}
+	}
+
+	public Node getPrev() {
+		return prev;
+	}
+
+	public void setPrev(Node prev) {
+		this.prev = prev;
+	}
+	public void setNext(Node next) {
+		this.next = next;
+	}
+	
+	public Node getNext() {
+		return next;
 	}
 	
 }
