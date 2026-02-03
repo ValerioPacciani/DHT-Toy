@@ -8,7 +8,7 @@ import Gui.*;
 public class Main {
  public static void main (String[] args) {
 	 
-	 Gui.CreateGui();
+	 
 	 
 	 
 	 System.out.println("Scegliere il numero di nodi con cui avere la rete di overlay (Anello)");
