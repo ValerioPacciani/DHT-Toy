@@ -1,4 +1,8 @@
 package adht.structures;
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+
 import adht.node.*;
 //this class is for the methods to create different type of structures
 
@@ -41,7 +45,33 @@ public class Structures {
 
 	    return min;
 	}
-	public static void PopulateRing(Node start,MappedPair[] content,String string) {
+	
+	public static Node OrderByKey(Node start) {
+	    if (start == null || start.getNext() == start) {
+	        return start; // check if ring is one node
+	    }
+	    // 1, create  list
+	    List<Node> nodes = new ArrayList<>();
+	    Node current = start;
+	    do {
+	        nodes.add(current);
+	        current = current.getNext();
+	    } while (current != start);
+
+	    // calling ording function form util
+	    nodes.sort(Comparator.comparingLong(Node::getHashidkey));
+
+	    // remake the ring
+	    for (int i = 0; i < nodes.size() - 1; i++) {
+	        nodes.get(i).setNext(nodes.get(i + 1));
+	    }
+	    nodes.get(nodes.size() - 1).setNext(nodes.get(0)); //make the last node having next as first
+
+	    // 4. return the start as min
+	    return nodes.get(0);
+	    }
+	    
+	static void PopulateRing(Node start,MappedPair[] content,String string) {
 		for (int i = 0; i< string.length(); i++) {
 			//TODO function
 		}
