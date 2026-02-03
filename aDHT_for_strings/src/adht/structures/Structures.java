@@ -28,38 +28,19 @@ public class Structures {
 		return first;
 	}
 	
-	public static void OrderNodeHash(Node start) {
-		boolean somethingswapped = false;
-	
-		do {
-		somethingswapped = false;
-		//FIXME the start node is not updated, so the cycle right now is infinite
-		Node prev = start;
-		Node current = prev.getNext();
-		Node next = current.getNext();
-		do  {
-			long key = current.getHashidkey();
-			long keynext = next.getHashidkey();
-			if (key >= keynext) {
-				prev.setNext(next);
-				current.setNext(next.getNext());
-				next.setNext(current);
-				
-				prev = next;
-				next = current.getNext();
-				
-				somethingswapped = true;
-				
-			} else {
-				prev = current;
-				current = next;
-				next = next.getNext();
-			}
-		} while (current != start);	
-		
-	} while(somethingswapped); //control flag, go out when i control all the cycle and nothing get swapped
+	public static Node findMin(Node start) {
+	    Node current = start.getNext();
+	    Node min = start;
+
+	    while (current != start) {
+	        if (current.getHashidkey() < min.getHashidkey()) {
+	            min = current;
+	        }
+	        current = current.getNext();
+	    }
+
+	    return min;
 	}
-	
 	public static void PopulateRing(Node start,MappedPair[] content,String string) {
 		for (int i = 0; i< string.length(); i++) {
 			//TODO function

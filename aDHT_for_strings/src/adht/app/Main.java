@@ -40,7 +40,8 @@ public class Main {
 		 current = current.getNext();
 	 	} System.out.println("////////////////////////////////////////////////////");
 	 	System.out.println("Ordimento via chiave");
-	 	Structures.OrderNodeHash(start);
+	 	start = Structures.findMin(start);
+	 	current = start;
 	 for (int k = 0; k< numberOfNodes; k++ ) {
 			
 		System.out.println(current.getHashidkey());
