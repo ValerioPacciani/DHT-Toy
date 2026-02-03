@@ -73,7 +73,7 @@ public class Structures {
 	    
 	static void PopulateRing(Node start,MappedPair[] content,String string) {
 		for (int i = 0; i< string.length(); i++) {
-			//TODO function
+			
 		}
 	}
 	public static void DistributeHash(Node start) { //distribute the mapped content keys into the mapped node ids
