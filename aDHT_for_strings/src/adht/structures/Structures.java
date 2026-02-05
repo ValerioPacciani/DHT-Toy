@@ -10,8 +10,8 @@ public class Structures {
 	public static final long RANGE_MAX = 4294967295L; //massimo valore di mappatura
 
 	
-	public static Node createRing(int numberOfNodes) {
-	Node first = null;
+	public static Node createRing(int numberOfNodes) {  //create ring
+	Node first = null; 
 	Node prev = null;
 		 
 	for (int i = 0; i< numberOfNodes; i++ ) {
@@ -32,7 +32,7 @@ public class Structures {
 		return first;
 	}
 	
-	public static Node findMin(Node start) {
+	public static Node findMin(Node start) { //find min into the nodes ring by hashed key
 	    Node current = start.getNext();
 	    Node min = start;
 
@@ -46,7 +46,7 @@ public class Structures {
 	    return min;
 	}
 	
-	public static Node OrderByKey(Node start) {
+	public static Node OrderByKey(Node start) {  // ordina i nodi per chiave e non per id
 	    if (start == null || start.getNext() == start) {
 	        return start; // check if ring is one node
 	    }
@@ -71,19 +71,32 @@ public class Structures {
 	    return nodes.get(0);
 	    }
 	    
-	static void PopulateRing(Node start,MappedPair[] content,String string) {
-		for (int i = 0; i< string.length(); i++) {
-			
+	public static void PopulateRing(Node start,MappedPair[] content) { //metti il content mappato dentro i nodi corretti
+		int k = 0;
+		for (int i = 0;i< content.length; i++) { //string.lenght = mappedPair[].length
+			k=0;
+		Node current = start;
+			do {
+				
+				if (content[i].getHashedkey() > current.getHashidkey() && content[i].getHashedkey() < current.getNext().getHashidkey()) {
+					current.populate(content[i]);
+					current = current.getNext();
+					k++;
+					System.out.println("ho incrementato current di 1 e ho aggiunto content");
+				
+				}
+				else if (content[i].getHashedkey() > start.getHashidkey() && content[i].getHashedkey() > current.getHashidkey()  ){ //FIXME wrap around case (it's not working right noe
+					current.populate(content[i]);
+					current = current.getNext();
+					System.out.println("wrap around case");
+				}else {
+					current = current.getNext();
+					System.out.println("ho incrementato current di 1");
+					k++;
+				}
+			} while (k < 10);
 		}
 	}
-	public static void DistributeHash(Node start) { //distribute the mapped content keys into the mapped node ids
-		Node current =start;
-		do  {
-			current.setHashidkey(MappingOfIds(current.getid()));
-			current = current.getNext();
-			 //we are getting the nodes next of the current (is for the while statement)
-		} while (current != start);	
-		}
 	
 	
 	public static MappedPair[] MappingContent(String content) { //map the single character to his hash key -> it returns an object that is actually a map key-> c
@@ -96,8 +109,17 @@ public class Structures {
 		return map;
 		}
 	//IMPORTANT: this has to be used every time i use a id map for normalize it -> maybe add it directly to the hash function
-	public static long MappingOfIds(int nodeId) {
+	public static long CreateHashIds(int nodeId) {  //crea una chiava ash per ogni nodo
 		long hash =  MurmurHashx32.hash32(Integer.toString(nodeId));
 		return hash & 0xFFFFFFFFL; //normalize the hash output(is a mask for remove the sign)
 	}
+	
+	public static void DistributeHash(Node start) { //distribute the mapped content keys into the mapped node ids (create it in aoutamatic)
+		Node current =start;
+		do  {
+			current.setHashidkey(CreateHashIds(current.getid()));
+			current = current.getNext();
+			 //we are getting the nodes next of the current (is for the while statement)
+		} while (current != start);	
+		}
 }

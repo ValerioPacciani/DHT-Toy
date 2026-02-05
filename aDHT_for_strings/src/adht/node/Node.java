@@ -1,8 +1,10 @@
 package adht.node;
+import adht.structures.*;
+import java.util.*;
 
 public class Node {
 	private int id;
-	private char[] stored;
+	public List<MappedPair> charmap = new ArrayList<>();
 	private Node next;
 	private Node prev;
 	private long hashidkey;
@@ -24,14 +26,17 @@ public class Node {
 		this.id = i;
 	}
 	
-	public void populate(char[] chars) {
-		int i = 0;
-		for (char c : chars) {
-			stored[i] = c;
-			i++;
+	public void populate (MappedPair content) {
+		if (charmap.isEmpty()) {
+			charmap.add(0,content);
+		} else {
+			charmap.add(content);
 		}
 	}
-
+	public MappedPair read() {
+		return charmap.getFirst();
+	}
+	
 	public Node getPrev() {
 		return prev;
 	}

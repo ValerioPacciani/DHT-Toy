@@ -13,10 +13,10 @@ public class MappedPair {
 	public long getHashedkey() {
 		return hashedkey;
 	}
-	public char getContent(long hashedkey){
+	public char getContent(){
 		return content;
 	}
-	public int getPlace(long hashedkey) {
+	public int getPlace() {
 		return place;
 	}
 	

@@ -24,34 +24,31 @@ public class Main {
 	 
 	 System.out.println("Inserire stringa da mappare:");
 	 
-	// String content = input.next();
+	 String content = input.next();
+	 MappedPair mappedcontent[] = Structures.MappingContent(content);
 	 
-	 //System.out.println(structures.MappingContent(content)[0]);
+	 System.out.println(mappedcontent[0].getContent());
 	 
 	 Node start = Structures.createRing(numberOfNodes);
 	 Structures.DistributeHash(start);
 	 
+	
+	
+	 start = Structures.OrderByKey(start);
+	 Structures.PopulateRing(start,mappedcontent);
+	 
 	 Node current = start;
-	 System.out.println("prima dell ordinamento via chiave (ordinato per id) ");
-	 for (int k = 0; k< numberOfNodes; k++ ) {
-		
-		 System.out.println(current.getHashidkey());
-		 System.out.println(current.getid());
-		 System.out.println("----------------------------------------------------");
-		 
-		 current = current.getNext();
-	 	} System.out.println("////////////////////////////////////////////////////");
-	 	System.out.println("Ordimento via chiave");
-	 	start = Structures.OrderByKey(start);
-	 	current = start;
-	 for (int k = 0; k< numberOfNodes; k++ ) {
+	 
+	  for (int k = 0; k< numberOfNodes; k++ ) {
 			
 		System.out.println(current.getHashidkey());
 		System.out.println(current.getid());
 		System.out.println("----------------------------------------------------");
-			 
-			 current = current.getNext();
-		 }
+		System.out.println(current.charmap.get(0).getContent());
+		System.out.println("----------------------------------------------------");
+			
+		current = current.getNext();
+		 } 
 		 
  }
  }
