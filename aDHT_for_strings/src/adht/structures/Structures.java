@@ -72,29 +72,30 @@ public class Structures {
 	    }
 	    
 	public static void PopulateRing(Node start,MappedPair[] content) { //metti il content mappato dentro i nodi corretti
-		int k = 0;
+	
 		for (int i = 0;i< content.length; i++) { //string.lenght = mappedPair[].length
-			k=0;
+			
 		Node current = start;
 			do {
-				
-				if (content[i].getHashedkey() > current.getHashidkey() && content[i].getHashedkey() < current.getNext().getHashidkey()) {
-					current.populate(content[i]);
-					current = current.getNext();
-					k++;
-					System.out.println("ho incrementato current di 1 e ho aggiunto content");
-				
-				}
-				else if (content[i].getHashedkey() > start.getHashidkey() && content[i].getHashedkey() > current.getHashidkey()  ){ //FIXME wrap around case (it's not working right noe
+				if (content[i].getHashedkey() < current.getHashidkey() && current == start){ 
 					current.populate(content[i]);
 					current = current.getNext();
 					System.out.println("wrap around case");
-				}else {
+				} else if (content[i].getHashedkey() >= current.getHashidkey() && content[i].getHashedkey() < current.getNext().getHashidkey()) {
+					current.populate(content[i]);
 					current = current.getNext();
-					System.out.println("ho incrementato current di 1");
-					k++;
+					System.out.println("content");
+				
+				} else if (content[i].getHashedkey() > current.getHashidkey() && current.getNext() == start) {
+					current.populate(content[i]);
+					current = current.getNext();
+					System.out.println("wrap around case");
+
+				} else {
+					current = current.getNext();
+					System.out.println("pass ->");
 				}
-			} while (k < 10);
+			} while (current != start);
 		}
 	}
 	

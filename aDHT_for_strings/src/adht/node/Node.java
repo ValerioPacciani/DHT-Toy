@@ -4,7 +4,7 @@ import java.util.*;
 
 public class Node {
 	private int id;
-	public List<MappedPair> charmap = new ArrayList<>();
+	public List<MappedPair> charmap = new ArrayList<>();//FIXME it should be private
 	private Node next;
 	private Node prev;
 	private long hashidkey;
@@ -33,10 +33,13 @@ public class Node {
 			charmap.add(content);
 		}
 	}
-	public MappedPair read() {
-		return charmap.getFirst();
-	}
+	public void read() {
 	
+		for (MappedPair content: charmap) {
+			System.out.println(content.getContent());
+			}
+		}
+ 
 	public Node getPrev() {
 		return prev;
 	}

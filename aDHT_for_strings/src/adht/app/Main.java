@@ -41,10 +41,15 @@ public class Main {
 	 
 	  for (int k = 0; k< numberOfNodes; k++ ) {
 			
-		System.out.println(current.getHashidkey());
+		//System.out.println(current.getHashidkey());
 		System.out.println(current.getid());
-		System.out.println("----------------------------------------------------");
-		System.out.println(current.charmap.get(0).getContent());
+		System.out.println("__");
+		if (!current.charmap.isEmpty()) {
+		  current.read();
+		} else {
+		    System.out.println("Nodo vuoto");
+		}
+
 		System.out.println("----------------------------------------------------");
 			
 		current = current.getNext();
