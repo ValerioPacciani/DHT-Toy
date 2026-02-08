@@ -28,6 +28,10 @@ public class Gui extends JFrame {
 		anelloitem.addActionListener(e -> {
 			menudati.setText("Anello");
             System.out.println("Hai scelto: Anello");
+            RingForm ring = new RingForm();
+            this.add(ring);
+            
+            
             // qui richiami il tuo codice per creare un anello
         });
 
