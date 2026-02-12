@@ -123,4 +123,19 @@ public class Structures {
 			 //we are getting the nodes next of the current (is for the while statement)
 		} while (current != start);	
 		}
-}
+	
+	
+	public static void PrintRIng(Node start) { //THIS HAS TO BE USED ONLY FOR DEBUG PURPOSE; PRINT WILL BE ON THE GUI SIDE
+		 Node Current = start;
+		 do {
+			 System.out.println("id" + Current.getid());
+			 System.out.println("hash" + Current.getHashidkey());
+			 System.out.println("-------------------------------");
+			 Current = Current.getNext();
+		 } while(Current != start);
+		 
+	 }
+	}
+
+
+

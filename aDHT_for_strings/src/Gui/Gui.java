@@ -1,8 +1,16 @@
 package Gui;
 import javax.swing.*;
 
+import adht.structures.Controller;
+
 public class Gui extends JFrame {
-	public Gui() {
+	
+	private final Controller controller; // controller for taking the data and send it to the app
+	
+	public Gui(Controller controller) {
+		
+		this.controller = controller;
+		
 		setTitle("DHT TOY HOMEPAGE");
 		setSize(600,800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -28,8 +36,9 @@ public class Gui extends JFrame {
 		anelloitem.addActionListener(e -> {
 			menudati.setText("Anello");
             System.out.println("Hai scelto: Anello");
-            RingForm ring = new RingForm();
-            this.add(ring);
+            RingForm ringform = new RingForm();
+            ringform.setOnSubmit(data -> controller.HandleRingForm(data)); //this call the consumer setONsubmit whit the data of the controller
+            this.add(ringform);
             
             
             // qui richiami il tuo codice per creare un anello

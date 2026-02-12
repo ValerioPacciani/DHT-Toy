@@ -8,52 +8,10 @@ import Gui.*;
 public class Main {
  public static void main (String[] args) {
 	 
-	 Gui Window = new Gui();
 	 
+	 Controller controller = new Controller();
+	 Gui Window = new Gui(controller);
 	 
-	 
-	 
-	 System.out.println("Scegliere il numero di nodi con cui avere la rete di overlay (Anello)");
-	 @SuppressWarnings("resource") //i need/want the stream always open 
-	 Scanner input = new Scanner(System.in);
-	 
-	 //Structures structures = new Structures();
-	 //TODO magari implementare una sorta di scelta della struttura anello, ipercubo etc
-	 
-	 int numberOfNodes = input.nextInt();
-	 
-	 System.out.println("Inserire stringa da mappare:");
-	 
-	 String content = input.next();
-	 MappedPair mappedcontent[] = Structures.MappingContent(content);
-	 
-	 System.out.println(mappedcontent[0].getContent());
-	 
-	 Node start = Structures.createRing(numberOfNodes);
-	 Structures.DistributeHash(start);
-	 
-	
-	
-	 start = Structures.OrderByKey(start);
-	 Structures.PopulateRing(start,mappedcontent);
-	 
-	 Node current = start;
-	 
-	  for (int k = 0; k< numberOfNodes; k++ ) {
-			
-		//System.out.println(current.getHashidkey());
-		System.out.println(current.getid());
-		System.out.println("__");
-		if (!current.charmap.isEmpty()) {
-		  current.read();
-		} else {
-		    System.out.println("Nodo vuoto");
-		}
-
-		System.out.println("----------------------------------------------------");
-			
-		current = current.getNext();
-		 } 
-		 
+	 Window.setVisible(true);
  }
  }

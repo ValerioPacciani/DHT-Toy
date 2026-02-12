@@ -1,80 +1,64 @@
 package Gui;
+import java.awt.Dimension;
 import java.awt.GridBagConstraints;
 import java.awt.GridBagLayout;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.util.function.Consumer;
 
 import javax.swing.*;
 
-public class RingForm extends JPanel{
-		JSpinner nodenumber; //dichiaration of variables
-		JTextField stringfield; //per l inserimento della stringa da mappare
-		JButton accept;
-		JLabel nodedesc;
-		JLabel stringdesc;
-		JPanel containerform;
-		
-		
-		//JGridLayout positions;
-		
-	public  RingForm() {
-		
-		
-		nodenumber = new JSpinner();
-		nodenumber.setToolTipText("numero nodi");
-		stringfield = new JTextField(20);
-		accept = new JButton ();
-		accept.
-		nodedesc = new JLabel("quanti nodi deve avere la struttura dati?");
-		stringdesc = new JLabel("inserire la stringa da mappare");
-		
-		setLayout(new GridBagLayout());
-		GridBagConstraints c = new GridBagConstraints();
-
-		c.insets = new Insets(5, 5, 5, 5); // margini standard
-		c.fill = GridBagConstraints.HORIZONTAL;
-
-		// --- Riga 0: label nodi ---
-		c.gridx = 0;
-		c.gridy = 0;
-		add(new JLabel("quanti nodi deve avere la struttura dati?"), c);
-
-		// spinner nodi
-		c.gridx = 1;
-		c.gridy = 0;
-		add(nodenumber, c);
-
-		// --- Riga 1: label stringa ---
-		c.gridx = 0;
-		c.gridy = 1;
-		add(new JLabel("inserire la stringa da mappare"), c);
-
-		// campo stringa
-		c.gridx = 1;
-		c.gridy = 1;
-		add(stringfield, c);
-
-		// --- Riga 2: bottone ---
-		c.gridx = 1;
-		c.gridy = 2;
-		c.gridwidth = 1; 
-		c.anchor = GridBagConstraints.CENTER;
-		add(accept, c);
-	   
+public  class RingForm extends JPanel{
 	
+		JSpinner numberofnodes;
+		JTextField stringtomap;
+		JButton sendbutton;
+		
+		private Consumer <RingFormData> onSubmit; //callback //consumer is liek a lmbda function , use it take a RingFormData and lunch onSubmit
+	//create form 3elements
+	
+
+	public RingForm() {
+		numberofnodes = new JSpinner();
+		numberofnodes.setPreferredSize(new Dimension(30,30));
+		numberofnodes.setToolTipText("number of ring nodes");
+		
+		stringtomap = new JTextField();
+		stringtomap.setPreferredSize(new Dimension(200,30));
+		stringtomap.setToolTipText("insert the string that have to be mapped into the nodes");
+		
+		sendbutton = new JButton("send");
+		sendbutton.setToolTipText("send the data and create structure");
+		sendbutton.setPreferredSize(new Dimension(80,30));
+		
+		sendbutton.addActionListener(e-> handlesubmit());
+			
+		this.add(numberofnodes);
+		this.add(stringtomap);
+		this.add(sendbutton);	
+		
+	}
+	
+	public void setOnSubmit(Consumer<RingFormData> onSubmit) {
+        this.onSubmit = onSubmit;
+    }
+
+	
+	public void handlesubmit() {
+		int nodes = (int)numberofnodes.getValue();
+		String text = stringtomap.getText();
+		
+		RingFormData record = new RingFormData(nodes,text);
+		
+		onSubmit.accept(record); //called the consumer
 		
 		
-		
-		setVisible(true);
+	}
 		
 		
 	}
 	
 	
-	public void onSubmit(Runnable action) {
-	        accept.addActionListener(e -> action.run());
-	    }
 	
-}
 
 
