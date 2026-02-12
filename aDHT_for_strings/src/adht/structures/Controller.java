@@ -14,7 +14,7 @@ public class Controller {
 		Node Start= Structures.createRing(nodes);
 		MappedPair[] content =Structures.MappingContent(text);
 		Structures.DistributeHash(Start);
-		Structures.OrderByKey(Start);
+		Start = Structures.OrderByKey(Start);
 		Structures.PopulateRing(Start, content);
 		
 		Structures.PrintRIng(Start);

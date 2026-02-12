@@ -50,7 +50,7 @@ public class Structures {
 	    if (start == null || start.getNext() == start) {
 	        return start; // check if ring is one node
 	    }
-	    // 1, create  list
+	    // create  list (buffer)
 	    List<Node> nodes = new ArrayList<>();
 	    Node current = start;
 	    do {
@@ -67,7 +67,7 @@ public class Structures {
 	    }
 	    nodes.get(nodes.size() - 1).setNext(nodes.get(0)); //make the last node having next as first
 
-	    // 4. return the start as min
+	    //return the start as min
 	    return nodes.get(0);
 	    }
 	    
@@ -115,7 +115,7 @@ public class Structures {
 		return hash & 0xFFFFFFFFL; //normalize the hash output(is a mask for remove the sign)
 	}
 	
-	public static void DistributeHash(Node start) { //distribute the mapped content keys into the mapped node ids (create it in aoutamatic)
+	public static void DistributeHash(Node start) { //distribute the node hash(id) into the mapped node ids (create it in aoutamatic)
 		Node current =start;
 		do  {
 			current.setHashidkey(CreateHashIds(current.getid()));
