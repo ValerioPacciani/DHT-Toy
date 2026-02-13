@@ -20,6 +20,7 @@ public class Controller {
 		Structures.PrintRIng(Start);
 		
 		
+		Start.setIsStart(true);
 		success = true;
 		return Start;
 	}

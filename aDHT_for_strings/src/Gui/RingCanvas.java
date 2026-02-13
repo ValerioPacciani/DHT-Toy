@@ -10,23 +10,25 @@ import javax.swing.JPanel;
 
 //this class is a container for the nodes for making them as graphic instances
 public class RingCanvas extends JPanel{
+	public Coordinates center;
 	private List <GraphicNode> nodes; //nodes that need to be istanziated;
 	
 	
 	public RingCanvas() {
 		setPreferredSize(new Dimension(600,600));
+		this.center = new Coordinates();
 	}
 	
 	public RingCanvas(List <GraphicNode> nodes) {
 		this.nodes = nodes;
 		setPreferredSize(new Dimension(600,600));
+		 this.center = new Coordinates();
 	}
 	
 	public void setNodes(List<GraphicNode> nodes) {
         this.nodes = nodes;
         repaint(); //we need to update the graphic
     }
-
 
 	@Override
 	protected void paintComponent(Graphics g) {
@@ -38,8 +40,13 @@ public class RingCanvas extends JPanel{
 	    Graphics2D g2 = (Graphics2D) g;
 
 	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //this is for the antilaisng (better graphics overall)
-
+	    
+	    this.center.setX(this.getWidth()/2);
+		this.center.setY(this.getHeight()/2);
 	    for (GraphicNode n : nodes) {
+	    	if (n.getLogicnode().getIsStart()) {
+	    		n.setPosition(center.getX(),10);
+	    	} 
 	    	//TODO set the x and y inside here
 	        n.draw(g2);
 	    }

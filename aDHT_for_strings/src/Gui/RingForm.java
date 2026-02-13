@@ -49,7 +49,8 @@ public  class RingForm extends JPanel{
 		
 		RingFormData record = new RingFormData(nodes,text);
 		
-		onSubmit.apply(record); //called the consumer
+		onSubmit.apply(record); //called the lamda fuction that send the datas
+		sendbutton.setEnabled(false);
 		
 		
 		

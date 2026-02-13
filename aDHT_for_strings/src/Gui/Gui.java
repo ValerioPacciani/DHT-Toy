@@ -1,4 +1,6 @@
 package Gui;
+import java.awt.BorderLayout;
+
 import javax.swing.*;
 
 import adht.structures.Controller;
@@ -8,7 +10,7 @@ public class Gui extends JFrame {
 	
 	private final Controller controller; // controller for taking the data and send it to the app
 	private final RingCanvas ringcanvas; //this is the compontent we'll use for drawing;
-	
+	JPanel mainlayout;
 	public Gui(Controller controller) {
 		
 		this.controller = controller;
@@ -17,6 +19,7 @@ public class Gui extends JFrame {
 		setTitle("DHT TOY HOMEPAGE");
 		setSize(600,800);
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
 
 		//-------Menu-------
 		//creazione componenti
@@ -24,7 +27,9 @@ public class Gui extends JFrame {
 		JMenu menudati = new JMenu("struttura dati");
 		JMenuItem anelloitem = new JMenuItem("Anello");
 		JMenuItem hypercubeitem = new JMenuItem("Hypercubo");
+		JPanel mainlayout = new JPanel(new BorderLayout());
 		
+		this.add(mainlayout); //add mainlayout to our page (is a cointer)
 		//aggiunta componenti ai loro parents
 		
 		
@@ -33,7 +38,8 @@ public class Gui extends JFrame {
 		
 		menubar.add(menudati);
 		setJMenuBar(menubar); //attacca il menubar alla finestra !!!!!!!! la finestra è gia presente quindi questo equivale a this.setJMenuBar(menubar)
-		this.add(ringcanvas);
+		mainlayout.add(ringcanvas,BorderLayout.CENTER);
+		
 		//gestione eventi 
 		
 		anelloitem.addActionListener(e -> {
@@ -46,7 +52,7 @@ public class Gui extends JFrame {
 				ringcanvas.repaint();
                 return start;
             });
-            this.add(ringform); 
+            mainlayout.add(ringform,BorderLayout.NORTH); 
             // qui richiami il tuo codice per creare un anello
         });
 

@@ -3,6 +3,7 @@ import adht.structures.*;
 import java.util.*;
 
 public class Node {
+	private boolean isStart = false;
 	private int id;
 	public List<MappedPair> charmap = new ArrayList<>();//FIXME it should be private
 	private Node next;
@@ -17,7 +18,13 @@ public class Node {
 		return hashidkey;
 	}
 	
+	public void setIsStart(boolean state) {
+		this.isStart = state;
+	}
 	
+	public boolean getIsStart() {
+		return isStart;
+	}
 	
 	public int getid() {
 		return id;

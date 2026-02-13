@@ -26,6 +26,9 @@ public class GraphicNode{
 		
 		
 	}
+	 public Node getLogicnode() {
+		 return logicnode;
+	 }
 	
     public void draw(Graphics2D g) {
         g.setColor(color);
