@@ -2,14 +2,17 @@ package Gui;
 import javax.swing.*;
 
 import adht.structures.Controller;
-
+import adht.structures.Sender;
+import adht.node.*;
 public class Gui extends JFrame {
 	
 	private final Controller controller; // controller for taking the data and send it to the app
+	private final RingCanvas ringcanvas; //this is the compontent we'll use for drawing;
 	
 	public Gui(Controller controller) {
 		
 		this.controller = controller;
+		this.ringcanvas = new RingCanvas();
 		
 		setTitle("DHT TOY HOMEPAGE");
 		setSize(600,800);
@@ -30,17 +33,20 @@ public class Gui extends JFrame {
 		
 		menubar.add(menudati);
 		setJMenuBar(menubar); //attacca il menubar alla finestra !!!!!!!! la finestra è gia presente quindi questo equivale a this.setJMenuBar(menubar)
-		
+		this.add(ringcanvas);
 		//gestione eventi 
 		
 		anelloitem.addActionListener(e -> {
 			menudati.setText("Anello");
             System.out.println("Hai scelto: Anello");
             RingForm ringform = new RingForm();
-            ringform.setOnSubmit(data -> controller.HandleRingForm(data)); //this call the consumer setONsubmit whit the data of the controller
-            this.add(ringform);
-            
-            
+            ringform.setOnSubmit(data -> {
+                Node start = controller.HandleRingForm(data);
+				ringcanvas.setNodes(Sender.packGraphics(start));
+				ringcanvas.repaint();
+                return start;
+            });
+            this.add(ringform); 
             // qui richiami il tuo codice per creare un anello
         });
 

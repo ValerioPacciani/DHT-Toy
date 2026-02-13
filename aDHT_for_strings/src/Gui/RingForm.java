@@ -1,8 +1,14 @@
 package Gui;
 import java.awt.Dimension;
+
 import java.util.function.Consumer;
+import java.util.function.Function;
 
 import javax.swing.*;
+
+import adht.node.*;
+
+import adht.structures.Sender;
 
 public  class RingForm extends JPanel{
 	
@@ -10,8 +16,7 @@ public  class RingForm extends JPanel{
 		JTextField stringtomap;
 		JButton sendbutton;
 		
-		private Consumer <RingFormData> onSubmit; //callback //consumer is liek a lmbda function , use it take a RingFormData and lunch onSubmit
-	//create form 3elements
+		private Function <RingFormData,Node> onSubmit;
 	
 
 	public RingForm() {
@@ -26,16 +31,14 @@ public  class RingForm extends JPanel{
 		sendbutton = new JButton("send");
 		sendbutton.setToolTipText("send the data and create structure");
 		sendbutton.setPreferredSize(new Dimension(80,30));
-		
 		sendbutton.addActionListener(e-> handlesubmit());
-			
+		
 		this.add(numberofnodes);
 		this.add(stringtomap);
-		this.add(sendbutton);	
-		
+		this.add(sendbutton);
 	}
 	
-	public void setOnSubmit(Consumer<RingFormData> onSubmit) {
+	public void setOnSubmit(Function<RingFormData,Node> onSubmit) {
         this.onSubmit = onSubmit;
     }
 
@@ -46,7 +49,9 @@ public  class RingForm extends JPanel{
 		
 		RingFormData record = new RingFormData(nodes,text);
 		
-		onSubmit.accept(record); //called the consumer
+		onSubmit.apply(record); //called the consumer
+		
+		
 		
 		
 	}

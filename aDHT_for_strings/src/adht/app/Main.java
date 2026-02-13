@@ -1,7 +1,5 @@
 package adht.app;
-import adht.node.*;
 import adht.structures.*;
-import java.util.Scanner;
 import Gui.*;
 /* implementnazione di una adht giocattolo sulle stringhe estramente inefficiente ma divertente */
 
