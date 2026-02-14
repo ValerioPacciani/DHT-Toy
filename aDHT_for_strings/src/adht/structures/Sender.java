@@ -11,13 +11,9 @@ public class Sender {
 	public static List <GraphicNode> packGraphics(Node Start){
 		Node current = Start;
 		List <GraphicNode> graph  = new ArrayList<>();
-		int x = 0;
-		int y = 0;
 		do {
-			graph.add(new GraphicNode(x,y,current));
+			graph.add(new GraphicNode(current));
 			current = current.getNext();
-			x = x+50;
-			y= y+30;
 		} while (current != Start);
 		return graph;
 	}

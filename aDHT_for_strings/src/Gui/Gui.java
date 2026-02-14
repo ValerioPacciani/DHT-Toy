@@ -10,7 +10,7 @@ public class Gui extends JFrame {
 	
 	private final Controller controller; // controller for taking the data and send it to the app
 	private final RingCanvas ringcanvas; //this is the compontent we'll use for drawing;
-	JPanel mainlayout;
+	JPanel mainlayout; //graphic container
 	public Gui(Controller controller) {
 		
 		this.controller = controller;
