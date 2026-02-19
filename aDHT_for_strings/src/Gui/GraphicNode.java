@@ -1,12 +1,15 @@
 package Gui;
 
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics2D;
+import java.awt.geom.AffineTransform;
+
 import adht.node.*;
 //this is the class component for a sigle graphic elemnt, node
 public class GraphicNode{
 	
-	private int x;	 //coordinates
+	private int x;	 //coordinates (respect 0,0 of panel)
 	private int y;
 	private double angle; //respect center
 	private Node logicnode; //refernce to the data node 
@@ -32,6 +35,10 @@ public class GraphicNode{
 		
 		
 	}
+	public int getSize() {
+		return size;
+	}
+	
 	 public Node getLogicnode() {
 		 return logicnode;
 	 }
@@ -52,13 +59,32 @@ public class GraphicNode{
 		return angle;
 	}
     public void draw(Graphics2D g) {
-        g.setColor(color);
+    	g.setColor(new Color(255,0,0,130));
         g.fillRect(x, y, size, size);
 
         g.setColor(Color.BLACK);
         g.drawRect(x, y, size, size);
     }
 
+    
+    public void drawHover(Graphics2D g) {
+    	double centerx = x+size/2;
+    	double centery = y+size/2; //calcolo il centro del nodo
+    	AffineTransform base = g.getTransform(); //trasformazione base
+    	g.translate(centerx, centery); //translate the draw for being into the node
+    	g.scale(2,2); //scale the node
+    	//get the data
+    	String hashkey = new String();
+    	hashkey = String.valueOf(logicnode.getHashidkey());
+    	g.translate(-centerx, -centery);
+    	g.setFont(new Font("arial",Font.PLAIN,6));
+    	g.drawString(hashkey,x,y+10);
+    	g.drawRect(x, y, size, size);
+    	g.setColor(new Color(255,0,0,130));
+    	g.fillRect(x, y, size, size);
+    	g.setTransform(base);
+    }
+    
     public void setPosition(int x,int y) {
     	this.x = x;
     	this.y = y;
