@@ -80,17 +80,19 @@ public class Structures {
 				if (content[i].getHashedkey() < current.getHashidkey() && current == start){ 
 					current.populate(content[i]);
 					current = current.getNext();
+					
 					System.out.println("wrap around case");
+					break;
 				} else if (content[i].getHashedkey() >= current.getHashidkey() && content[i].getHashedkey() < current.getNext().getHashidkey()) {
 					current.populate(content[i]);
 					current = current.getNext();
 					System.out.println("content");
-				
+					break;
 				} else if (content[i].getHashedkey() > current.getHashidkey() && current.getNext() == start) {
 					current.populate(content[i]);
 					current = current.getNext();
 					System.out.println("wrap around case");
-
+					break;
 				} else {
 					current = current.getNext();
 					System.out.println("pass ->");
@@ -104,7 +106,8 @@ public class Structures {
 		MappedPair[] map = new MappedPair[content.length()];
 		for (int i = 0; i < content.length(); i++) {
 			char c = content.charAt(i);
-			long hash = MurmurHashx32.hash32(Integer.toString(c));
+			long hash = MurmurHashx32.hash32(String.valueOf(c));
+			hash = hash & 0xFFFFFFFFL; //normalize the hash output
 			map[i] = new MappedPair(hash,c,i);
 		}
 		return map;
@@ -131,11 +134,33 @@ public class Structures {
 			 System.out.println("id" + Current.getid());
 			 System.out.println("hash" + Current.getHashidkey());
 			 System.out.println("-------------------------------");
+			 
+			 Current.debugprint();
+
 			 Current = Current.getNext();
 		 } while(Current != start);
 		 
 	 }
-	}
+	
+	public static Node Succesor(Node start, long key) { //find first node responsible for key in in input (it is utilized for chord populate later)
+	Node current = start;
+	do {
+		if (key < current.getHashidkey() && current == start){ 
+			return current;
+		} else if (key>= current.getHashidkey() && key < current.getNext().getHashidkey()) {
+			return current;
+		} else if (key > current.getHashidkey() && current.getNext() == start) {
+			return current;
+		} current = current.getNext();
+		
+	} while (current != start);
+	return  null;
+}
+}
+
+	
+	
+	
 
 
 

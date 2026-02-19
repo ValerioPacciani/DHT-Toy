@@ -59,11 +59,11 @@ public class GraphicNode{
 		return angle;
 	}
     public void draw(Graphics2D g) {
-    	g.setColor(new Color(255,0,0,130));
-        g.fillRect(x, y, size, size);
+    	g.setColor(new Color(200,0,0,100));
+        g.fillRoundRect(x, y, size, size,10,10);
 
         g.setColor(Color.BLACK);
-        g.drawRect(x, y, size, size);
+        g.drawRoundRect(x, y, size, size,10,10);
     }
 
     
@@ -72,16 +72,30 @@ public class GraphicNode{
     	double centery = y+size/2; //calcolo il centro del nodo
     	AffineTransform base = g.getTransform(); //trasformazione base
     	g.translate(centerx, centery); //translate the draw for being into the node
-    	g.scale(2,2); //scale the node
+    	g.scale(5,5); //scale the node
+    	g.translate(-centerx, -centery);
     	//get the data
     	String hashkey = new String();
+    	String id = new String();
+    	String ch = new String();
     	hashkey = String.valueOf(logicnode.getHashidkey());
-    	g.translate(-centerx, -centery);
-    	g.setFont(new Font("arial",Font.PLAIN,6));
-    	g.drawString(hashkey,x,y+10);
-    	g.drawRect(x, y, size, size);
+    	id = String.valueOf(logicnode.getid());
+    	ch = "CHAR = ";
+    	//logic for draw strings
+    	for(char c : logicnode.readChars()) {
+    		ch = ch.concat(String.valueOf(c)+" ");
+    		
+    	}
+    	if(ch.length() > 17) {
+			ch = ch.substring(0,17)+ "...";
+		}
+    	g.setFont(new Font("arial",Font.PLAIN,3));
+    	g.drawString("ID = "+id,x+2,y+5);	
+    	g.drawString("KEY = "+hashkey,x+2,y+15);
+    	g.drawString(ch,x+2,y+25);
+    	g.drawRoundRect(x, y, size, size,10,10);
     	g.setColor(new Color(255,0,0,130));
-    	g.fillRect(x, y, size, size);
+    	g.fillRoundRect(x, y, size, size,10,10);
     	g.setTransform(base);
     }
     

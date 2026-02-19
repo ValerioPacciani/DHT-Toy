@@ -28,6 +28,7 @@ public class RingCanvas extends JPanel{
 		addMouseMotionListener(new MouseMotionAdapter() {
 			@Override
 			public void mouseMoved(MouseEvent e) {
+				if (nodes == null || nodes.isEmpty()) return;
 				hovered = null;
 				for (GraphicNode n : nodes) {
 					if((e.getX() >= n.getPositionX() && e.getX()<= n.getPositionX()+n.getSize()) && (e.getY() >= n.getPositionY() && e.getY() <= n.getPositionY()+n.getSize()))  {
