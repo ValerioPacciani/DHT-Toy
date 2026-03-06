@@ -135,6 +135,10 @@ public class Structures {
 			 System.out.println("hash" + Current.getHashidkey());
 			 System.out.println("-------------------------------");
 			 
+			 for (int k = 0; k< Current.getFingerTable().size(); k++) {
+				 System.out.println("hash of fingertable " +Current.getFingerTable().get(k).getHashidkey() +" of entry index: " + k);
+			 }
+			 
 			 Current.debugprint();
 
 			 Current = Current.getNext();
@@ -142,6 +146,15 @@ public class Structures {
 		 
 	 }
 	
+
+
+
+/*------------------------------------------------------------------------------------------------------------------------
+ * 
+ * CHORD LOGIC FOR FINGER TABLE
+ * 
+ -------------------------------------------------------------------------------------------------------------------------*/
+
 	public static Node Succesor(Node start, long key) { //find first node responsible for key in in input (it is utilized for chord populate later)
 	Node current = start;
 	do {
@@ -156,10 +169,28 @@ public class Structures {
 	} while (current != start);
 	return  null;
 }
+	
+public static void populateFingerTable(Node node ,Node start) {
+	node.getFingerTable().clear(); 
+	
+	for (int i = 0; i<32;i++) {
+		long fingerkey = (node.getHashidkey() + (1L << i)) % (RANGE_MAX+1); //this operation compute the key+2^i so i can update the finger 
+		Node succesor = Structures.Succesor(start, fingerkey);
+		node.setFingerTable(succesor);
+	}
+}
+
+
+public static void buildAllFingerTables(Node start) { 
+    Node current = start;
+    do {
+        populateFingerTable(current, start);
+        current = current.getNext();
+    } while (current != start);
 }
 
 	
-	
+}	
 	
 
 

@@ -16,6 +16,7 @@ public class Controller {
 		Structures.DistributeHash(Start);
 		Start = Structures.OrderByKey(Start);
 		Structures.PopulateRing(Start, content);
+		Structures.buildAllFingerTables(Start);
 		
 		Structures.PrintRIng(Start);
 		

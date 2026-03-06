@@ -72,7 +72,7 @@ public class GraphicNode{
     	double centery = y+size/2; //calcolo il centro del nodo
     	AffineTransform base = g.getTransform(); //trasformazione base
     	g.translate(centerx, centery); //translate the draw for being into the node
-    	g.scale(5,5); //scale the node
+    	g.scale(4,4); //scale the node
     	g.translate(-centerx, -centery);
     	//get the data
     	String hashkey = new String();
@@ -86,7 +86,7 @@ public class GraphicNode{
     		ch = ch.concat(String.valueOf(c)+" ");
     		
     	}
-    	if(ch.length() > 17) {
+    	if(ch.length() > 17) { //i know this is hardcoded, but it works for now //TODO maybe make it sclable and dynamic
 			ch = ch.substring(0,17)+ "...";
 		}
     	g.setFont(new Font("arial",Font.PLAIN,3));

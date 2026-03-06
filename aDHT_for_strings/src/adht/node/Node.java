@@ -7,6 +7,7 @@ public class Node {
 	private int id;
 	public List<MappedPair> charmap = new ArrayList<>();//FIXME it should be private
 	private List<Node> FingerTable = new ArrayList<>();
+
 	private Node next;
 	private Node prev;
 	private long hashidkey;
@@ -85,5 +86,8 @@ public class Node {
 		this.FingerTable.add(Entry);
 	}
 
+	public List<Node> getFingerTable() {
+		return FingerTable;
+	}
 	
 }

@@ -1,6 +1,7 @@
 package Gui;
 
 import java.awt.Dimension;
+import java.awt.event.MouseListener;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.RenderingHints;
@@ -8,6 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseMotionAdapter;
 import java.util.List;
 import java.util.function.Function;
+import java.awt.event.MouseAdapter;
 
 import javax.swing.JPanel;
 
@@ -16,6 +18,7 @@ import adht.node.Node;
 //this class is a container for the nodes for making them as graphic instances
 public class RingCanvas extends JPanel{
 	private GraphicNode hovered = null; //variable for graphic hover
+	private GraphicNode clicked = null; //variable for clicked nodes
 	public Coordinates center;
 	private List <GraphicNode> nodes; //nodes that need to be istanziated;
 	
@@ -39,8 +42,23 @@ public class RingCanvas extends JPanel{
 				repaint();
 			}
 		});
+	
+		addMouseListener(new MouseAdapter() { //mouse adapter is a class that hold all the method for when something happen to the mouse
+			@Override  //we override it so we can take the event
+			public void mouseClicked(MouseEvent e) {
+				if (nodes == null || nodes.isEmpty()) return;  //safeguard when node == 0
+				 clicked = null;
+				for (GraphicNode n : nodes) {
+					if((e.getX() >= n.getPositionX() && e.getX()<= n.getPositionX()+n.getSize()) && (e.getY() >= n.getPositionY() && e.getY() <= n.getPositionY()+n.getSize()))  {
+						clicked = n;
+						break;
+		            }
+		        }
+			}
+		});
 
 	}
+	
 	
 	public RingCanvas(List <GraphicNode> nodes) {
 		this.nodes = nodes;
@@ -68,11 +86,11 @@ public class RingCanvas extends JPanel{
 	    if (nodes == null || nodes.isEmpty()) return; //safeshield
 
 	    Graphics2D g2 = (Graphics2D) g;
-	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+	    g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON); //better rendiring visualization
 
 	    center.setX(getWidth() / 2);
 	    center.setY(getHeight() / 2);
-
+	    
 	    double radius = Math.min(getWidth(), getHeight()) / 2 - 40;
 
 	    for (GraphicNode n : nodes) {
