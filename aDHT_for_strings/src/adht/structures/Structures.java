@@ -10,6 +10,20 @@ public class Structures {
 	public static final long RANGE_MAX = 4294967295L; //massimo valore di mappatura
 
 	
+	/*----------------------------------------------------------------------------------
+	 * Methods for structure creation
+	 */
+	public static int countRingEntries(Node start) {
+		int c = 0;
+		Node current = start;
+		do {
+			c++;
+			current = current.getNext();
+		} while (current != start);
+	return c;
+	}
+	
+	
 	public static Node createRing(int numberOfNodes) {  //create ring
 	Node first = null; 
 	Node prev = null;
@@ -189,9 +203,44 @@ public static void buildAllFingerTables(Node start) {
     } while (current != start);
 }
 
+public static Node chordSuccessor(Node start, Node compare) {
+	Node plausiblesuccessor = null;
+	Node prevsucc;
+	for (int i = 0; i < start.getFingerTable().size(); i++) {
+		if ( start.getFingerTable().get(i).getHashidkey() <= compare.getHashidkey()) {
+			prevsucc = start.getFingerTable().get(i);
+			plausiblesuccessor = start.getFingerTable().get(i);
+			if (plaus)
+			plausiblesuccessor = chordSuccessor(plausiblesuccessor,compare);
+			
+		} else {
+			break;
+		}
+	} return plausiblesuccessor;
+}
+
 	
-}	
+/* -----------------------------------------------------------------------------------------------
+ * Node Manipluation methods
+ */
+
+
+public static void addNode(Node newnode,Node start) {
+	newnode.setid(Structures.countRingEntries(start)+1); //set id
+	newnode.setHashidkey(CreateHashIds(newnode.getid())); //set hashkey
 	
+	Node plausiblesuccesor;
+	
+	for (int i = 0; i < start.getFingerTable().size(); i++) {
+		if (newnode.getHashidkey() <= start.getFingerTable().get(i).getHashidkey()) {
+			plausiblesuccessor = start.getFingerTable().get(i);
+		} else {
+			break;
+		}
+	}
+}
 
 
 
+
+}
