@@ -168,7 +168,17 @@ public class Structures {
  * CHORD LOGIC FOR FINGER TABLE
  * 
  -------------------------------------------------------------------------------------------------------------------------*/
-
+	public static Node Predecessor(Node node, Node start)  { //this functions find the predecessor to a given node
+		Node prev = null;
+		Node current = start;
+		do {
+			prev = current;
+			current = current.getNext();
+		} while( node.getHashidkey() != current.getHashidkey());
+		return prev;
+	}
+	
+	
 	public static Node Succesor(Node start, long key) { //find first node responsible for key in in input (it is utilized for chord populate later)
 	Node current = start;
 	do {
@@ -204,20 +214,23 @@ public static void buildAllFingerTables(Node start) {
 }
 
 public static Node chordSuccessor(Node start, Node compare) {
-	Node plausiblesuccessor = null;
-	Node prevsucc;
-	for (int i = 0; i < start.getFingerTable().size(); i++) {
-		if ( start.getFingerTable().get(i).getHashidkey() <= compare.getHashidkey()) {
-			prevsucc = start.getFingerTable().get(i);
-			plausiblesuccessor = start.getFingerTable().get(i);
-			if (plaus)
-			plausiblesuccessor = chordSuccessor(plausiblesuccessor,compare);
-			
-		} else {
-			break;
-		}
-	} return plausiblesuccessor;
-}
+    Node closestPreceding = null;
+
+    for (int i = 0; i < start.getFingerTable().size(); i++) {
+        Node finger = start.getFingerTable().get(i);
+
+        if (finger.getHashidkey() <= compare.getHashidkey()) {
+            closestPreceding = finger;
+        } else {
+            break;
+        	} 
+    	}	if (closestPreceding == null) { //significa che non ho trovato niente quindi il nodo piu vicino è start
+        	return start;
+        } else if (closestPreceding.getHashidkey() == compare.getHashidkey()) {
+        	return closestPreceding; //nodo esatto
+        }
+    	return chordSuccessor(closestPreceding, start);
+    }
 
 	
 /* -----------------------------------------------------------------------------------------------
@@ -229,18 +242,11 @@ public static void addNode(Node newnode,Node start) {
 	newnode.setid(Structures.countRingEntries(start)+1); //set id
 	newnode.setHashidkey(CreateHashIds(newnode.getid())); //set hashkey
 	
-	Node plausiblesuccesor;
+	Node successor = chordSuccessor(start,newnode);
+	Node predecessor = Predecessor(successor,start);
 	
-	for (int i = 0; i < start.getFingerTable().size(); i++) {
-		if (newnode.getHashidkey() <= start.getFingerTable().get(i).getHashidkey()) {
-			plausiblesuccessor = start.getFingerTable().get(i);
-		} else {
-			break;
-		}
+	predecessor.setNext(newnode);
+	newnode.setNext(successor);
+	
 	}
-}
-
-
-
-
 }

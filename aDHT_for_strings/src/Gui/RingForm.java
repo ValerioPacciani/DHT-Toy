@@ -15,8 +15,9 @@ public  class RingForm extends JPanel{
 		JSpinner numberofnodes;
 		JTextField stringtomap;
 		JButton sendbutton;
-		
+		JButton addnodebutton;
 		private Function <RingFormData,Node> onSubmit;
+		
 	
 
 	public RingForm() {
@@ -33,9 +34,16 @@ public  class RingForm extends JPanel{
 		sendbutton.setPreferredSize(new Dimension(80,30));
 		sendbutton.addActionListener(e-> handlesubmit());
 		
+		addnodebutton = new JButton("add");
+		addnodebutton.setToolTipText("add a new node to the structure, id and key will be calcolauted automatically");
+		addnodebutton.setPreferredSize(new Dimension(80,20));
+		addnodebutton.addActionListener(e-> handleaddnewnode());
+		
+		
 		this.add(numberofnodes);
 		this.add(stringtomap);
 		this.add(sendbutton);
+		this.add(addnodebutton);
 	}
 	
 	public void setOnSubmit(Function<RingFormData,Node> onSubmit) {
@@ -51,13 +59,12 @@ public  class RingForm extends JPanel{
 		
 		onSubmit.apply(record); //called the lamda fuction that send the datas
 		sendbutton.setEnabled(false);
+		}
 		
 		
-		
+	public void handleaddnewnode() {
 		
 	}
-		
-		
 	}
 	
 	
