@@ -7,11 +7,15 @@ import java.util.function.Function;
 import javax.swing.*;
 
 import adht.node.*;
-
+import adht.structures.Controller;
 import adht.structures.Sender;
 
 public  class RingForm extends JPanel{
 	
+		Controller controller;
+		private Node start;
+		
+		
 		JSpinner numberofnodes;
 		JTextField stringtomap;
 		JButton sendbutton;
@@ -20,7 +24,8 @@ public  class RingForm extends JPanel{
 		
 	
 
-	public RingForm() {
+	public RingForm(Controller controller) {
+		this.controller = controller;
 		numberofnodes = new JSpinner();
 		numberofnodes.setPreferredSize(new Dimension(30,30));
 		numberofnodes.setToolTipText("number of ring nodes");
@@ -46,10 +51,11 @@ public  class RingForm extends JPanel{
 		this.add(addnodebutton);
 	}
 	
-	public void setOnSubmit(Function<RingFormData,Node> onSubmit) {
+	public void setOnSubmit(Function<RingFormData,Node> onSubmit) { //callback
         this.onSubmit = onSubmit;
     }
 
+	
 	
 	public void handlesubmit() {
 		int nodes = (int)numberofnodes.getValue();
@@ -60,14 +66,20 @@ public  class RingForm extends JPanel{
 		onSubmit.apply(record); //called the lamda fuction that send the datas
 		sendbutton.setEnabled(false);
 		}
-		
-		
+
 	public void handleaddnewnode() {
+		controller.addNode(start);
 		
-	}
+		}
+	
+	
+	//setter and getter (if needed)
+	
+	public void setStart(Node start) {
+		this.start = start;
 	}
 	
 	
 	
 
-
+}

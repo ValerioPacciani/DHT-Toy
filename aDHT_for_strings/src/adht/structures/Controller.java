@@ -18,7 +18,7 @@ public class Controller {
 		Structures.PopulateRing(Start, content);
 		Structures.buildAllFingerTables(Start);
 		
-		Structures.PrintRIng(Start);
+		
 		
 		
 		Start.setIsStart(true);
@@ -27,6 +27,16 @@ public class Controller {
 		
 		
 		return Start;
+		
+	}
+	
+	public void addNode(Node start) {
+		System.out.println("ciao mamma aggiungo un nodo");
+		Node newnode = new Node();
+		Structures.addNode(newnode, start);
+		Structures.buildAllFingerTables(start); //this is terrible for a real word implementation o(N) every time i add a new node
+		
+		Structures.PrintRIng(start);
 		
 	}
 }

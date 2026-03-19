@@ -247,6 +247,7 @@ public static void addNode(Node newnode,Node start) {
 	
 	predecessor.setNext(newnode);
 	newnode.setNext(successor);
+	System.out.println("added node id:" + newnode.getid());
 	
 	}
 }

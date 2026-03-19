@@ -7,7 +7,7 @@ import adht.structures.Controller;
 import adht.structures.Sender;
 import adht.node.*;
 public class Gui extends JFrame {
-	
+	private Node start;
 	private final Controller controller; // controller for taking the data and send it to the app
 	private final RingCanvas ringcanvas; //this is the compontent we'll use for drawing;
 	JPanel mainlayout; //graphic container
@@ -45,12 +45,13 @@ public class Gui extends JFrame {
 		anelloitem.addActionListener(e -> {
 			menudati.setText("Anello");
             System.out.println("Hai scelto: Anello");
-            RingForm ringform = new RingForm();
+            RingForm ringform = new RingForm(controller);
             ringform.setOnSubmit(data -> {
-                Node start = controller.HandleRingForm(data);
+                this.start = controller.HandleRingForm(data);
 				ringcanvas.setNodes(Sender.packGraphics(start));
 				ringcanvas.repaint();
-                return start;
+				ringform.setStart(start);
+				return start;
             });
             mainlayout.add(ringform,BorderLayout.NORTH); 
             // qui richiami il tuo codice per creare un anello
