@@ -120,7 +120,7 @@ public class Structures {
 		MappedPair[] map = new MappedPair[content.length()];
 		for (int i = 0; i < content.length(); i++) {
 			char c = content.charAt(i);
-			long hash = MurmurHashx32.hash32(String.valueOf(c));
+			long hash = MurmurHashx32.hash32(String.valueOf(c) + i); //the hashed function there is taking the value of c and his index (for avoid repetition -> for example every "c" will be mapped in the same node if i don't add the randomness of the i"
 			hash = hash & 0xFFFFFFFFL; //normalize the hash output
 			map[i] = new MappedPair(hash,c,i);
 		}
@@ -251,3 +251,12 @@ public static void addNode(Node newnode,Node start) {
 	
 	}
 }
+
+
+
+
+/* ________________________________________________________________________________________________________-
+ * Data maniupulation methods
+ ____________________________________________________________________________________________________________*/
+
+

@@ -53,6 +53,10 @@ public class Gui extends JFrame {
 				ringform.setStart(start);
 				return start;
             });
+            ringform.setonNewNodeAdded(() -> {
+            	ringcanvas.setNodes(Sender.packGraphics(start));
+            	ringcanvas.repaint();
+            });
             mainlayout.add(ringform,BorderLayout.NORTH); 
             // qui richiami il tuo codice per creare un anello
         });

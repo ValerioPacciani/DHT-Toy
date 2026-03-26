@@ -21,6 +21,7 @@ public  class RingForm extends JPanel{
 		JButton sendbutton;
 		JButton addnodebutton;
 		private Function <RingFormData,Node> onSubmit;
+		private Runnable  onNewNodeAdded; //callback for node adding 
 		
 	
 
@@ -54,6 +55,9 @@ public  class RingForm extends JPanel{
 	public void setOnSubmit(Function<RingFormData,Node> onSubmit) { //callback
         this.onSubmit = onSubmit;
     }
+	public void setonNewNodeAdded(Runnable onNewNodeAdded) {
+		this.onNewNodeAdded = onNewNodeAdded;
+	}
 
 	
 	
@@ -68,8 +72,9 @@ public  class RingForm extends JPanel{
 		}
 
 	public void handleaddnewnode() {
+		//FIXME should be not callable if the ring still not created
 		controller.addNode(start);
-		
+		onNewNodeAdded.run();
 		}
 	
 	

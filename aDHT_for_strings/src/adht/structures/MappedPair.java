@@ -1,6 +1,6 @@
 package adht.structures;
 //this class is for creating a map (key-> value) for hashing the content
-public class MappedPair {
+public class MappedPair { //FIXME is called mappedpair but it holds 3 infomrations
 	private long hashedkey;
 	private char content;
 	private int place;
